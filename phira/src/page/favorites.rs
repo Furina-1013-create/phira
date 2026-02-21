@@ -23,9 +23,9 @@ thread_local! {
     pub static FAV_PAGE_RESULT: RefCell<Option<Option<String>>> = RefCell::default();
 }
 
-const CARD_WIDTH: f32 = 0.44;
-const CARD_HEIGHT: f32 = 0.34;
-const CARD_PAD: f32 = 0.036;
+const CARD_WIDTH: f32 = 0.41;
+const CARD_HEIGHT: f32 = 0.32;
+const CARD_PAD: f32 = 0.033;
 
 /// 收藏夹文件夹项
 struct FolderItem {
