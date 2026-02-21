@@ -18,8 +18,7 @@ use prpr::{
 };
 use std::{borrow::Cow, cell::RefCell, sync::Arc};
 
-/// 收藏夹浏览页选择结果
-/// None = 显示全部, Some(folder_name) = 过滤指定收藏夹
+/// 收藏夹浏览页选择结果：None = 显示全部, Some(folder_name) = 过滤指定收藏夹
 thread_local! {
     pub static FAV_PAGE_RESULT: RefCell<Option<Option<String>>> = RefCell::default();
 }
@@ -32,12 +31,12 @@ const CARD_PAD: f32 = 0.036;
 struct FolderItem {
     /// 收藏夹名称，None 表示"显示全部谱面"
     folder_name: Option<String>,
-    /// 显示名称
+    /// 名称
     display_name: String,
     /// 封面插图
     illu: Illustration,
     /// 按钮
-    btn: RectButton,    /// “...”编辑按钮
+    btn: RectButton,    /// 编辑按钮
     menu_btn: DRectButton,}
 
 pub struct FavoritesPage {
@@ -95,8 +94,7 @@ impl FavoritesPage {
         let tex = BLACK_TEXTURE.clone();
         let data = get_data();
         let mut folders = Vec::new();
-
-        // 1. "显示全部谱面" - 使用背景图作为封面
+        // 显示全部谱面用背景图作为封面
         let all_illu = if let Some(ref bg) = self.bg_tex {
             Illustration::from_done(bg.clone())
         } else {
@@ -109,8 +107,7 @@ impl FavoritesPage {
             btn: RectButton::new(),
             menu_btn: DRectButton::new(),
         });
-
-        // 2. "默认收藏夹"
+        // 默认收藏夹
         if data.favorites.folders.contains_key(DEFAULT_FAVORITES_KEY) {
             let first_path = Self::first_chart_path(DEFAULT_FAVORITES_KEY);
             let cover = data.favorites.covers.get(DEFAULT_FAVORITES_KEY).cloned();
@@ -123,8 +120,7 @@ impl FavoritesPage {
                 menu_btn: DRectButton::new(),
             });
         }
-
-        // 3. 自定义收藏夹
+        // 自定义收藏夹
         for name in data.favorites.custom_folder_names() {
             let first_path = Self::first_chart_path(&name);
             let cover = data.favorites.covers.get(&name).cloned();
@@ -146,7 +142,6 @@ impl FavoritesPage {
     fn first_chart_path(folder: &str) -> Option<String> {
         let data = get_data();
         let paths = data.favorites.get_paths(folder);
-        // 确保该路径实际存在于本地谱面列表中
         for p in &paths {
             if data.charts.iter().any(|c| &c.local_path == p) {
                 return Some(p.clone());
@@ -155,9 +150,8 @@ impl FavoritesPage {
         None
     }
 
-    /// 构建封面 Illustration
     fn make_cover_illu(tex: &SafeTexture, first_chart_path: Option<&str>, _custom_cover: Option<&str>) -> Illustration {
-        // 优先使用自定义封面（TODO: 实现自定义封面加载）
+        // 优先使用自定义封面（TODO: 实现自定义封面加载，后面再写）
         // 其次使用第一首谱面的封面
         if let Some(path) = first_chart_path {
             local_illustration(path.to_string(), tex.clone(), false)
@@ -166,7 +160,7 @@ impl FavoritesPage {
         }
     }
 
-    /// 判断文件夹是否可编辑（自定义收藏夹可编辑，默认和"全部"不可）
+    /// 自定义收藏夹可编辑，默认和"全部"不可
     fn is_editable(folder_name: &Option<String>) -> bool {
         match folder_name {
             None => false,
@@ -229,13 +223,12 @@ impl Page for FavoritesPage {
             }
         }
 
-        // 新建收藏夹按钮
         if self.create_btn.touch(touch, t) {
             request_input("fav_create", "");
             return Ok(true);
         }
 
-        // "..." 编辑按钮检测（必须在滚动和卡片点击之前）
+        // 编辑按钮检测
         for folder in self.folders.iter_mut() {
             if Self::is_editable(&folder.folder_name) && folder.menu_btn.touch(touch, t) {
                 if let Some(name) = &folder.folder_name {
@@ -259,7 +252,6 @@ impl Page for FavoritesPage {
             }
         }
 
-        // 滚动
         if self.scroll.touch(touch, rt) {
             return Ok(true);
         }
@@ -294,7 +286,7 @@ impl Page for FavoritesPage {
             self.rebuild_folders();
         }
 
-        // 处理输入事件
+        // 处理输入事件  ||  Handle input events
         if let Some((id, text)) = take_input() {
             if id == "fav_create" {
                 let name = text.trim().to_string();
@@ -315,7 +307,6 @@ impl Page for FavoritesPage {
                 } else if let Some(old_name) = &self.editing_folder {
                     let old = old_name.clone();
                     if get_data_mut().favorites.rename_folder(&old, &new_name) {
-                        // 同步封面映射
                         if let Some(cover) = get_data_mut().favorites.covers.remove(&old) {
                             get_data_mut().favorites.covers.insert(new_name.clone(), cover);
                         }
@@ -330,11 +321,11 @@ impl Page for FavoritesPage {
             }
         }
 
-        // 处理文件选择（自定义封面）
+        // 处理文件选择（自定义封面，暂时还是todo状态没有完成）
         if let Some((id, path)) = take_file() {
             if id == "fav_cover" {
                 if let Some(ref folder) = self.editing_folder {
-                    // 保存自定义封面路径
+                    // 保存自定义封面路径  ||  Save custom cover path
                     get_data_mut().favorites.covers.insert(folder.clone(), path);
                     let _ = save_data();
                     self.need_rebuild = true;
@@ -347,8 +338,6 @@ impl Page for FavoritesPage {
 
     fn render(&mut self, ui: &mut Ui, s: &mut SharedState) -> Result<()> {
         let t = s.t;
-
-        // 通知所有 illustration 可以开始加载
         for folder in &self.folders {
             folder.illu.notify();
         }
@@ -356,8 +345,7 @@ impl Page for FavoritesPage {
         let edit_bar_height = if self.editing_folder.is_some() { 0.09 } else { 0.0 };
 
         s.render_fader(ui, |ui| {
-            // 顶部留出更多空间，避免与标题文字重叠
-            let top = -ui.top + 0.14;
+            let top = -ui.top + 0.13;
             let bottom = ui.top - edit_bar_height;
             let content_h = bottom - top;
 
@@ -381,19 +369,13 @@ impl Page for FavoritesPage {
 
                         let r = Rect::new(x, y, CARD_WIDTH, CARD_HEIGHT);
                         folder.btn.set(ui, r);
-
-                        // 绘制卡片背景
                         ui.fill_rect(r, semi_black(0.5));
-
-                        // 绘制封面图（覆盖整个卡片）
                         let illu_r = r;
                         let alpha = folder.illu.alpha(t);
                         if alpha > 0. {
                             ui.fill_rect(illu_r, folder.illu.shading(illu_r, t));
                         }
                         ui.fill_rect(illu_r, semi_black(0.15));
-
-                        // 绘制名称（左下角，透明样式）
                         ui.text(&folder.display_name)
                             .pos(r.x + 0.03, r.bottom() - 0.03)
                             .anchor(0., 1.)
@@ -403,10 +385,10 @@ impl Page for FavoritesPage {
                             .color(semi_white(0.9))
                             .draw();
 
-                        // 绘制 "..." 编辑按钮（右上角，仅可编辑的收藏夹显示）
+                        // 绘制编辑按钮（左上角，仅自定义的收藏夹显示）  ||  Draw edit button (top left corner, only for custom favorites)
                         if Self::is_editable(&folder.folder_name) {
-                            let menu_size = 0.06;
-                            let menu_r = Rect::new(r.right() - menu_size - 0.01, r.y + 0.01, menu_size, menu_size);
+                            let menu_size = 0.05;
+                            let menu_r = Rect::new(r.left() + menu_size - 0.03, r.y + 0.01, menu_size, menu_size);  // 从右上角改为左上角感觉观感好一些（卧槽这个位置我调了好几次这个是最好的）
                             folder.menu_btn.render_shadow(ui, menu_r, t, |ui, path| {
                                 ui.fill_path(&path, semi_black(0.4));
                             });
@@ -419,7 +401,7 @@ impl Page for FavoritesPage {
                                 .draw();
                         }
 
-                        // 如果正在编辑该收藏夹，绘制高亮边框
+                        // 如果正在编辑该收藏夹，绘制高亮边框  ||  If this favorites folder is being edited, draw a highlighted border
                         if self.editing_folder.as_ref() == folder.folder_name.as_ref() {
                             let border = r.feather(0.003);
                             ui.fill_rect(
@@ -440,16 +422,11 @@ impl Page for FavoritesPage {
                             );
                         }
 
-                        // 谱面数量（右上角，有 "..." 按钮时避开）
+                        // 这个收藏夹里面包含的谱面数量  ||  The number of charts contained in this favorites folder
                         if let Some(ref name) = folder.folder_name {
                             let count = get_data().favorites.get_paths(name).len();
-                            let count_y = if Self::is_editable(&folder.folder_name) {
-                                r.y + 0.09  // 在 "..." 按钮下方
-                            } else {
-                                r.y + 0.02
-                            };
                             ui.text(format!("{}", count))
-                                .pos(r.right() - 0.02, count_y)
+                                .pos(r.right() - 0.02, r.y + 0.02)
                                 .anchor(1., 0.)
                                 .size(0.35)
                                 .color(semi_white(0.6))
@@ -464,7 +441,6 @@ impl Page for FavoritesPage {
                 });
             });
 
-            // 新建收藏夹按钮（右下角，在编辑栏上方）
             let btn_w = 0.28;
             let btn_h = 0.06;
             let btn_r = Rect::new(1.0 - btn_w - 0.04, bottom - btn_h - 0.02, btn_w, btn_h);
@@ -481,12 +457,11 @@ impl Page for FavoritesPage {
                 .draw();
         });
 
-        // 编辑栏（底部，不遮挡收藏夹显示区域）
+        // 编辑栏  ||  Edit bar
         if let Some(ref _editing) = self.editing_folder {
             let bar_y = ui.top - edit_bar_height;
             let bar_r = Rect::new(-1., bar_y, 2., edit_bar_height);
             ui.fill_rect(bar_r, semi_black(0.7));
-            // 分隔线
             ui.fill_rect(Rect::new(-1., bar_y, 2., 0.002), semi_white(0.3));
 
             let btn_w = 0.3;
@@ -496,7 +471,6 @@ impl Page for FavoritesPage {
             let total_w = btn_w * 3. + gap * 2.;
             let start_x = -total_w / 2.;
 
-            // 自定义封面
             let r = Rect::new(start_x, btn_y, btn_w, btn_h);
             self.edit_cover_btn.render_shadow(ui, r, s.t, |ui, path| {
                 ui.fill_path(&path, semi_black(0.4));
@@ -509,7 +483,6 @@ impl Page for FavoritesPage {
                 .color(semi_white(0.9))
                 .draw();
 
-            // 重命名
             let r = Rect::new(start_x + btn_w + gap, btn_y, btn_w, btn_h);
             self.edit_rename_btn.render_shadow(ui, r, s.t, |ui, path| {
                 ui.fill_path(&path, semi_black(0.4));
@@ -522,7 +495,6 @@ impl Page for FavoritesPage {
                 .color(semi_white(0.9))
                 .draw();
 
-            // 删除（红色文字）
             let r = Rect::new(start_x + (btn_w + gap) * 2., btn_y, btn_w, btn_h);
             self.edit_delete_btn.render_shadow(ui, r, s.t, |ui, path| {
                 ui.fill_path(&path, semi_black(0.4));

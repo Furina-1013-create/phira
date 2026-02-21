@@ -28,6 +28,7 @@ item-bgm = Volume BGM
 item-cali = Penyesuaian offset
 
 item-show-acc = Tunjukkan akurasi waktu nyata
+item-show-remaining-acc = Tunjukkan akurasi tersisa
 item-dc-pause = Tekan dua kali untuk pause
 item-dhint = Double hint
 item-dhint-sub = Note-note yang perlu ditekan bersamaan akan bersinar.

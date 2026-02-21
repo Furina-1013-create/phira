@@ -34,6 +34,16 @@ pub fn basic_client_builder() -> ClientBuilder {
     if get_data().accept_invalid_cert {
         builder = builder.danger_accept_invalid_certs(true);
     }
+    // 在自己移动设备上面测试需要，后续移除（）
+    #[cfg(target_os = "android")]
+    {
+        let mut root_store = rustls::RootCertStore::empty();
+        root_store.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
+        let tls_config = rustls::ClientConfig::builder()
+            .with_root_certificates(root_store)
+            .with_no_client_auth();
+        builder = builder.use_preconfigured_tls(tls_config);
+    }
     builder
 }
 

@@ -402,6 +402,13 @@ impl GameScene {
                             .size(0.4)
                             .color(Color { a: c.a * 0.7, ..c })
                             .draw_using(&PGR_FONT);
+                    } else if res.config.show_remaining_acc {
+                        ui.text(format!("{:05.2}%", self.judge.remaining_accuracy() * 100.))
+                            .pos(1. - margin, score_top + h)
+                            .anchor(1., 0.)
+                            .size(0.4)
+                            .color(Color { a: c.a * 0.7, ..c })
+                            .draw_using(&PGR_FONT);
                     }
                 },
             );

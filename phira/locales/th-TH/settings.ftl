@@ -41,6 +41,7 @@ item-bgm = เสียง BGM
 item-cali = ปรับ Offset
 
 item-show-acc = โชว์ค่า Accuracy
+item-show-remaining-acc = โชว์ค่า Accuracy ที่เหลือ
 item-dc-pause = กด 2 ครั้งเพื่อหยุด
 item-dhint = Highlight simul. notes
 item-dhint-sub = Note ที่ต้องกดพร้อมกันจะถูก Highlight

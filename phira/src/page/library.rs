@@ -88,9 +88,9 @@ pub struct LibraryPage {
     rating_last_show: bool,
     filter_show_tag: bool,
 
-    // 收藏夹相关
+    // 收藏夹
     fav_btn: DRectButton,
-    /// None = 显示全部, Some(folder_name) = 过滤指定收藏夹
+    /// None = 显示全部, Some(folder_name) = 过滤指定收藏夹  ||  None = show all, Some(folder_name) = filter by the specified favorites folder
     current_fav_folder: Option<String>,
 
     next_page: Option<NextPage>,
@@ -287,7 +287,7 @@ impl Page for LibraryPage {
     }
 
     fn enter(&mut self, s: &mut SharedState) -> Result<()> {
-        // 读取收藏夹浏览页的选择结果
+        // 读取收藏夹浏览页的选择结果  ||  read the selection result of the favorites page
         if let Some(result) = FAV_PAGE_RESULT.with(|it| it.borrow_mut().take()) {
             self.current_fav_folder = result;
             self.sync_local(s);
@@ -503,7 +503,6 @@ impl Page for LibraryPage {
                 Ok(())
             })
         })?;
-        // 收藏夹按钮（仅本地模式显示）- 已移至导入按钮左侧
         if chosen != ChartListType::Popular {
             s.render_fader(ui, |ui| {
                 let empty = self.search_str.is_empty();
@@ -540,14 +539,14 @@ impl Page for LibraryPage {
                 }
                 if chosen == ChartListType::Local {
                     let btn_w = 0.24;
-                    // 导入按钮（右侧）
+                    // 导入按钮（右侧）  ||  Import button (right side)
                     let import_r = Rect::new(r.x + r.w - btn_w, r.y, btn_w, r.h);
                     let ct = import_r.center();
                     self.import_btn.render_shadow(ui, import_r, t, |ui, path| {
                         ui.fill_path(&path, semi_black(0.4));
                     });
                     ui.text(tl!("import")).pos(ct.x, ct.y).anchor(0.5, 0.5).no_baseline().size(0.6).draw();
-                    // 收藏夹按钮（导入按钮左侧，等宽）
+                    // 收藏夹按钮（导入按钮左侧）  ||  Favorites button (left side of the import button)
                     let fav_r = Rect::new(import_r.x - btn_w - 0.02, r.y, btn_w, r.h);
                     let fav_text = if let Some(ref folder) = self.current_fav_folder {
                         if folder == DEFAULT_FAVORITES_KEY {

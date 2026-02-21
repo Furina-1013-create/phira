@@ -2900,6 +2900,7 @@ dependencies = [
  "futures-util",
  "hex",
  "image",
+ "jni",
  "logos",
  "lru",
  "lyon",
@@ -2918,6 +2919,7 @@ dependencies = [
  "rand 0.8.5",
  "regex",
  "reqwest",
+ "rustls",
  "sasa",
  "semver",
  "serde",
@@ -2931,6 +2933,7 @@ dependencies = [
  "tracing",
  "uuid",
  "walkdir",
+ "webpki-roots",
  "zip",
  "zstd",
 ]
@@ -4905,6 +4908,15 @@ name = "webpki-root-certs"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "36a29fc0408b113f68cf32637857ab740edfafdf460c326cd2afaa2d84cc05dc"
+dependencies = [
+ "rustls-pki-types",
+]
+
+[[package]]
+name = "webpki-roots"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22cfaf3c063993ff62e73cb4311efde4db1efb31ab78a3e5c457939ad5cc0bed"
 dependencies = [
  "rustls-pki-types",
 ]

@@ -36,6 +36,7 @@ item-bgm = BGM 볼륨
 item-cali = 오프셋 조정
 
 item-show-acc = 실시간 정확도 표시
+item-show-remaining-acc = 잔여 정확도 표시
 item-dc-pause = 더블 클릭으로 일시 정지
 item-dhint = 더블 힌트
 item-dhint-sub = 선을 따라 동시에 터치하는 노트가 강조됩니다.

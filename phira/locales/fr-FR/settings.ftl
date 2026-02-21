@@ -41,6 +41,7 @@ item-bgm = Volume de la musique de fond
 item-cali = Ajuster le décalage
 
 item-show-acc = Afficher la précision en temps réel
+item-show-remaining-acc = Afficher la précision restante
 item-dc-pause = Double-appui pour mettre en pause
 item-dhint = Indication d'appui simultané
 item-dhint-sub = Les notes qui touchent la ligne simultanément seront mises en surbrillance.
