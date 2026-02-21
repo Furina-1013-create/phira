@@ -17,6 +17,132 @@ use std::{
 };
 use tracing::debug;
 
+pub const DEFAULT_FAVORITES_KEY: &str = "default";
+
+#[derive(Clone, Default, Serialize, Deserialize)]
+pub struct Favorites {
+    /// 收藏夹列表：key 为收藏夹名称，value 为 local_path 列表
+    #[serde(default)]
+    pub folders: HashMap<String, Vec<String>>,
+    /// 收藏夹自定义封面路径：key 为收藏夹名称，value 为封面文件路径
+    #[serde(default)]
+    pub covers: HashMap<String, String>,
+}
+
+impl Favorites {
+    pub fn ensure_default(&mut self) {
+        if !self.folders.contains_key(DEFAULT_FAVORITES_KEY) {
+            self.folders.insert(DEFAULT_FAVORITES_KEY.to_string(), Vec::new());
+        }
+    }
+
+    /// 检查某个 local_path 是否被收藏到默认收藏夹
+    pub fn is_in_default(&self, local_path: &str) -> bool {
+        self.folders
+            .get(DEFAULT_FAVORITES_KEY)
+            .map_or(false, |v| v.contains(&local_path.to_string()))
+    }
+
+    /// 检查某个 local_path 是否被收藏到任意收藏夹
+    pub fn is_favorited(&self, local_path: &str) -> bool {
+        self.folders.values().any(|v| v.contains(&local_path.to_string()))
+    }
+
+    /// 添加到指定收藏夹
+    pub fn add_to(&mut self, folder: &str, local_path: &str) {
+        let list = self.folders.entry(folder.to_string()).or_default();
+        if !list.contains(&local_path.to_string()) {
+            list.push(local_path.to_string());
+        }
+    }
+
+    /// 从指定收藏夹移除
+    pub fn remove_from(&mut self, folder: &str, local_path: &str) {
+        if let Some(list) = self.folders.get_mut(folder) {
+            list.retain(|p| p != local_path);
+        }
+    }
+
+    /// 切换默认收藏夹状态
+    pub fn toggle_default(&mut self, local_path: &str) -> bool {
+        self.ensure_default();
+        let list = self.folders.get_mut(DEFAULT_FAVORITES_KEY).unwrap();
+        if let Some(pos) = list.iter().position(|p| p == local_path) {
+            list.remove(pos);
+            false
+        } else {
+            list.push(local_path.to_string());
+            true
+        }
+    }
+
+    /// 获取所有自定义收藏夹名称（不含默认）
+    pub fn custom_folder_names(&self) -> Vec<String> {
+        self.folders
+            .keys()
+            .filter(|k| k.as_str() != DEFAULT_FAVORITES_KEY)
+            .cloned()
+            .collect()
+    }
+
+    /// 获取所有收藏夹名称（默认在前）
+    pub fn all_folder_names(&self) -> Vec<String> {
+        let mut names = Vec::new();
+        if self.folders.contains_key(DEFAULT_FAVORITES_KEY) {
+            names.push(DEFAULT_FAVORITES_KEY.to_string());
+        }
+        for k in self.folders.keys() {
+            if k != DEFAULT_FAVORITES_KEY {
+                names.push(k.clone());
+            }
+        }
+        names
+    }
+
+    /// 获取指定收藏夹内的所有 local_path
+    pub fn get_paths(&self, folder: &str) -> Vec<String> {
+        self.folders.get(folder).cloned().unwrap_or_default()
+    }
+
+    /// 删除自定义收藏夹（不删除其中的谱面）
+    pub fn delete_folder(&mut self, folder: &str) {
+        if folder != DEFAULT_FAVORITES_KEY {
+            self.folders.remove(folder);
+        }
+    }
+
+    /// 重命名收藏夹
+    pub fn rename_folder(&mut self, old_name: &str, new_name: &str) -> bool {
+        if old_name == DEFAULT_FAVORITES_KEY || self.folders.contains_key(new_name) {
+            return false;
+        }
+        if let Some(paths) = self.folders.remove(old_name) {
+            self.folders.insert(new_name.to_string(), paths);
+            true
+        } else {
+            false
+        }
+    }
+
+    /// 创建新收藏夹
+    pub fn create_folder(&mut self, name: &str) -> bool {
+        if self.folders.contains_key(name) {
+            return false;
+        }
+        self.folders.insert(name.to_string(), Vec::new());
+        true
+    }
+
+    /// 检查 local_path 在哪些收藏夹中
+    pub fn folders_containing(&self, local_path: &str) -> Vec<String> {
+        self.folders
+            .iter()
+            .filter(|(_, v)| v.contains(&local_path.to_string()))
+            .map(|(k, _)| k.clone())
+            .collect()
+    }
+}
+
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BriefChartInfo {
@@ -96,6 +222,9 @@ pub struct Data {
     pub enable_anys: bool,
     #[serde(default = "default_anys_gateway")]
     pub anys_gateway: String,
+
+    #[serde(default)]
+    pub favorites: Favorites,
 }
 
 impl Data {
@@ -172,6 +301,7 @@ impl Data {
             self.read_tos_and_policy = false;
         }
         self.config.init();
+        self.favorites.ensure_default();
         Ok(())
     }
 
