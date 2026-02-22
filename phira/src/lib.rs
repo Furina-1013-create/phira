@@ -1,3 +1,5 @@
+#![allow(dependency_on_unit_never_type_fallback)]
+
 prpr_l10n::tl_file!("common" ttl crate::);
 
 #[cfg(feature = "closed")]
@@ -38,6 +40,20 @@ use prpr_l10n::{set_prefered_locale, GLOBAL, LANGS};
 use scene::MainScene;
 use std::sync::{mpsc, Mutex};
 use tracing::{error, info};
+
+// 不知道为什么要是不加这一段时我在我自己安卓本地测试的时候有点击就闪退的问题...
+#[cfg(target_os = "android")]
+#[no_mangle]
+pub extern "C" fn Java_quad_1native_QuadNative_preprocessInput(
+    _env: *mut std::ffi::c_void,
+    _this: *mut std::ffi::c_void,
+    _motion_event: *mut std::ffi::c_void,
+    _scale_x: f32,
+    _scale_y: f32,
+    _invert_x: u8,
+    _invert_y: u8,
+) {
+}
 
 static MESSAGES_TX: Mutex<Option<mpsc::Sender<bool>>> = Mutex::new(None);
 static AA_TX: Mutex<Option<mpsc::Sender<i32>>> = Mutex::new(None);
