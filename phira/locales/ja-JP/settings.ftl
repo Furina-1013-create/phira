@@ -25,7 +25,7 @@ item-insecure = 安全でないモード
 item-insecure-sub = オンラインの機能がうまく動作しない場合にオンにしてください。これをオンにすると、接続の安全性が低下します。
 
 item-show-acc = 精度を表示
-item-show-remaining-acc = 残り精度を表示
+item-show-remaining-acc =
 item-dc-pause = ダブルクリックでポーズ
 item-dhint = 多点タップサポート
 item-dhint-sub = 同時ノーツが強調表示されます

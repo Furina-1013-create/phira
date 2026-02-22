@@ -41,7 +41,7 @@ item-bgm = Hintergrundmusik-Lautstärke
 item-cali = Offset anpassen
 
 item-show-acc = Genauigkeit in Echtzeit
-item-show-remaining-acc = Verbleibende Genauigkeit
+item-show-remaining-acc =
 item-dc-pause = Doppeltippen zum Pausieren
 item-dhint = Gleichzeitiger Hinweis
 item-dhint-sub = Hebt Noten hervor, die gleichzeitig getroffen werden müssen.

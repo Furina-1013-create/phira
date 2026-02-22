@@ -103,8 +103,8 @@ mods-flip-x = Mirror
 mods-flip-x-sub = Lật ngược Chart theo trục X
 mods-fade-out = Mờ dần
 mods-fade-out-sub = Note sẽ biến mất khi chúng đến gần line
-# mods-strict-judge = Phán xét nghiêm ngặt  
-# mods-strict-judge-sub = Sử dụng cửa sổ phán xét nghiêm ngặt hơn  
+# mods-strict-judge =  # 严判模式已注释
+# mods-strict-judge-sub =  # 严判模式已注释
 
 rate-failed = Không thể đánh giá
 rate-done = Đã đánh giá
