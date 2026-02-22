@@ -16,7 +16,8 @@ use prpr::{
     task::Task,
     ui::{button_hit, DRectButton, RectButton, Scroll, Ui, Dialog},
 };
-use std::{borrow::Cow, cell::RefCell, sync::Arc};
+use std::{borrow::Cow, cell::RefCell, sync::{Arc, Mutex}};
+use tokio::sync::Notify;
 
 /// 收藏夹浏览页选择结果：None = 显示全部, Some(folder_name) = 过滤指定收藏夹
 thread_local! {
@@ -109,9 +110,9 @@ impl FavoritesPage {
         });
         // 默认收藏夹
         if data.favorites.folders.contains_key(DEFAULT_FAVORITES_KEY) {
-            let first_path = Self::first_chart_path(DEFAULT_FAVORITES_KEY);
+            let last_path = Self::last_chart_path(DEFAULT_FAVORITES_KEY);
             let cover = data.favorites.covers.get(DEFAULT_FAVORITES_KEY).cloned();
-            let illu = Self::make_cover_illu(&tex, first_path.as_deref(), cover.as_deref());
+            let illu = Self::make_cover_illu(&tex, last_path.as_deref(), cover.as_deref());
             folders.push(FolderItem {
                 folder_name: Some(DEFAULT_FAVORITES_KEY.to_string()),
                 display_name: tl!("favorites-default").to_string(),
@@ -122,9 +123,9 @@ impl FavoritesPage {
         }
         // 自定义收藏夹
         for name in data.favorites.custom_folder_names() {
-            let first_path = Self::first_chart_path(&name);
+            let last_path = Self::last_chart_path(&name);
             let cover = data.favorites.covers.get(&name).cloned();
-            let illu = Self::make_cover_illu(&tex, first_path.as_deref(), cover.as_deref());
+            let illu = Self::make_cover_illu(&tex, last_path.as_deref(), cover.as_deref());
             folders.push(FolderItem {
                 folder_name: Some(name.clone()),
                 display_name: name,
@@ -138,11 +139,11 @@ impl FavoritesPage {
         self.need_rebuild = false;
     }
 
-    /// 获取收藏夹中第一个谱面的 local_path
-    fn first_chart_path(folder: &str) -> Option<String> {
+    /// 获取收藏夹中最后一个（最新收藏的）谱面的 local_path  || Get the local_path of the last (most recently favorited) chart in the favorites folder
+    fn last_chart_path(folder: &str) -> Option<String> {
         let data = get_data();
         let paths = data.favorites.get_paths(folder);
-        for p in &paths {
+        for p in paths.iter().rev() {
             if data.charts.iter().any(|c| &c.local_path == p) {
                 return Some(p.clone());
             }
@@ -150,21 +151,49 @@ impl FavoritesPage {
         None
     }
 
-    fn make_cover_illu(tex: &SafeTexture, first_chart_path: Option<&str>, _custom_cover: Option<&str>) -> Illustration {
-        // 优先使用自定义封面（TODO: 实现自定义封面加载，后面再写）
-        // 其次使用第一首谱面的封面
-        if let Some(path) = first_chart_path {
+    fn make_cover_illu(tex: &SafeTexture, last_chart_path: Option<&str>, custom_cover: Option<&str>) -> Illustration {
+        // 优先使用自定义封面  ||  Use custom cover first
+        if let Some(cover_path) = custom_cover {
+            let path = cover_path.to_string();
+            let notify = Arc::new(Notify::new());
+            let notify_clone = Arc::clone(&notify);
+            return Illustration {
+                texture: (tex.clone(), tex.clone()),
+                notify,
+                task: Some(Task::new(async move {
+                    notify_clone.notified().await;
+                    let bytes = tokio::fs::read(&path).await?;
+                    let img = image::load_from_memory(&bytes)?;
+                    Ok((img, None))
+                })),
+                loaded: Arc::default(),
+                load_time: f32::NAN,
+            };
+        }
+        // 其次使用最新收藏谱面的封面  ||  Then use the cover of the latest favorited chart
+        if let Some(path) = last_chart_path {
             local_illustration(path.to_string(), tex.clone(), false)
         } else {
             Illustration::from_done(tex.clone())
         }
     }
 
-    /// 自定义收藏夹可编辑，默认和"全部"不可
+    /// 默认收藏夹仅可修改封面  ||  The default favorites folder can only modify the cover
+    fn is_default_folder(folder_name: &Option<String>) -> bool {
+        matches!(folder_name, Some(name) if name == DEFAULT_FAVORITES_KEY)
+    }
+
+    /// 自定义收藏夹可编辑（重命名、删除、修改封面）  ||  Custom favorites folders can be edited (rename, delete, modify cover)
     fn is_editable(folder_name: &Option<String>) -> bool {
         match folder_name {
             None => false,
             Some(name) => name != DEFAULT_FAVORITES_KEY,
+        }
+    }
+    fn has_menu(folder_name: &Option<String>) -> bool {
+        match folder_name {
+            None => false,
+            Some(_) => true, // 默认收藏夹和自定义收藏夹都显示
         }
     }
 }
@@ -175,7 +204,7 @@ impl Page for FavoritesPage {
     }
 
     fn on_back_pressed(&mut self, _s: &mut SharedState) -> bool {
-        // 如果正在编辑，先退出编辑模式
+        // 如果正在编辑，先退出编辑模式  ||  If currently editing, exit edit mode first
         if self.editing_folder.is_some() {
             self.editing_folder = None;
             return true;
@@ -187,17 +216,18 @@ impl Page for FavoritesPage {
         let t = s.t;
         let rt = s.rt;
 
-        // 编辑栏按钮处理
+        // 编辑栏按钮处理  ||  Edit bar button handling
         if let Some(ref editing) = self.editing_folder.clone() {
+            let is_default = editing == DEFAULT_FAVORITES_KEY;
             if self.edit_cover_btn.touch(touch, t) {
                 request_file("fav_cover");
                 return Ok(true);
             }
-            if self.edit_rename_btn.touch(touch, t) {
+            if !is_default && self.edit_rename_btn.touch(touch, t) {
                 request_input("fav_rename", editing);
                 return Ok(true);
             }
-            if self.edit_delete_btn.touch(touch, t) {
+            if !is_default && self.edit_delete_btn.touch(touch, t) {
                 let folder = editing.clone();
                 Dialog::plain(
                     tl!("favorites-delete"),
@@ -230,7 +260,7 @@ impl Page for FavoritesPage {
 
         // 编辑按钮检测
         for folder in self.folders.iter_mut() {
-            if Self::is_editable(&folder.folder_name) && folder.menu_btn.touch(touch, t) {
+            if Self::has_menu(&folder.folder_name) && folder.menu_btn.touch(touch, t) {
                 if let Some(name) = &folder.folder_name {
                     button_hit();
                     self.editing_folder = Some(name.clone());
@@ -385,8 +415,8 @@ impl Page for FavoritesPage {
                             .color(semi_white(0.9))
                             .draw();
 
-                        // 绘制编辑按钮（左上角，仅自定义的收藏夹显示）  ||  Draw edit button (top left corner, only for custom favorites)
-                        if Self::is_editable(&folder.folder_name) {
+                        // 绘制编辑按钮（左上角）  ||  Draw edit button (top left corner)
+                        if Self::has_menu(&folder.folder_name) {
                             let menu_size = 0.05;
                             let menu_r = Rect::new(r.left() + menu_size - 0.03, r.y + 0.01, menu_size, menu_size);  // 从右上角改为左上角感觉观感好一些（卧槽这个位置我调了好几次这个是最好的）
                             folder.menu_btn.render_shadow(ui, menu_r, t, |ui, path| {
@@ -458,7 +488,8 @@ impl Page for FavoritesPage {
         });
 
         // 编辑栏  ||  Edit bar
-        if let Some(ref _editing) = self.editing_folder {
+        if let Some(ref editing) = self.editing_folder {
+            let is_default = editing == DEFAULT_FAVORITES_KEY;
             let bar_y = ui.top - edit_bar_height;
             let bar_r = Rect::new(-1., bar_y, 2., edit_bar_height);
             ui.fill_rect(bar_r, semi_black(0.7));
@@ -468,44 +499,61 @@ impl Page for FavoritesPage {
             let btn_h = 0.055;
             let btn_y = bar_y + (edit_bar_height - btn_h) / 2.;
             let gap = 0.08;
-            let total_w = btn_w * 3. + gap * 2.;
-            let start_x = -total_w / 2.;
 
-            let r = Rect::new(start_x, btn_y, btn_w, btn_h);
-            self.edit_cover_btn.render_shadow(ui, r, s.t, |ui, path| {
-                ui.fill_path(&path, semi_black(0.4));
-            });
-            ui.text(tl!("favorites-custom-cover"))
-                .pos(r.center().x, r.center().y)
-                .anchor(0.5, 0.5)
-                .no_baseline()
-                .size(0.4)
-                .color(semi_white(0.9))
-                .draw();
+            if is_default {
+                // 默认收藏夹仅显示修改封面按钮  ||  The default favorites folder only shows the modify cover button
+                let r = Rect::new(-btn_w / 2., btn_y, btn_w, btn_h);
+                self.edit_cover_btn.render_shadow(ui, r, s.t, |ui, path| {
+                    ui.fill_path(&path, semi_black(0.4));
+                });
+                ui.text(tl!("favorites-custom-cover"))
+                    .pos(r.center().x, r.center().y)
+                    .anchor(0.5, 0.5)
+                    .no_baseline()
+                    .size(0.4)
+                    .color(semi_white(0.9))
+                    .draw();
+            } else {
+                // 自定义收藏夹显示三个按钮  ||  Custom favorites folders show three buttons
+                let total_w = btn_w * 3. + gap * 2.;
+                let start_x = -total_w / 2.;
 
-            let r = Rect::new(start_x + btn_w + gap, btn_y, btn_w, btn_h);
-            self.edit_rename_btn.render_shadow(ui, r, s.t, |ui, path| {
-                ui.fill_path(&path, semi_black(0.4));
-            });
-            ui.text(tl!("favorites-rename"))
-                .pos(r.center().x, r.center().y)
-                .anchor(0.5, 0.5)
-                .no_baseline()
-                .size(0.4)
-                .color(semi_white(0.9))
-                .draw();
+                let r = Rect::new(start_x, btn_y, btn_w, btn_h);
+                self.edit_cover_btn.render_shadow(ui, r, s.t, |ui, path| {
+                    ui.fill_path(&path, semi_black(0.4));
+                });
+                ui.text(tl!("favorites-custom-cover"))
+                    .pos(r.center().x, r.center().y)
+                    .anchor(0.5, 0.5)
+                    .no_baseline()
+                    .size(0.4)
+                    .color(semi_white(0.9))
+                    .draw();
 
-            let r = Rect::new(start_x + (btn_w + gap) * 2., btn_y, btn_w, btn_h);
-            self.edit_delete_btn.render_shadow(ui, r, s.t, |ui, path| {
-                ui.fill_path(&path, semi_black(0.4));
-            });
-            ui.text(tl!("favorites-delete"))
-                .pos(r.center().x, r.center().y)
-                .anchor(0.5, 0.5)
-                .no_baseline()
-                .size(0.4)
-                .color(Color::new(1., 0.3, 0.3, 0.9))
-                .draw();
+                let r = Rect::new(start_x + btn_w + gap, btn_y, btn_w, btn_h);
+                self.edit_rename_btn.render_shadow(ui, r, s.t, |ui, path| {
+                    ui.fill_path(&path, semi_black(0.4));
+                });
+                ui.text(tl!("favorites-rename"))
+                    .pos(r.center().x, r.center().y)
+                    .anchor(0.5, 0.5)
+                    .no_baseline()
+                    .size(0.4)
+                    .color(semi_white(0.9))
+                    .draw();
+
+                let r = Rect::new(start_x + (btn_w + gap) * 2., btn_y, btn_w, btn_h);
+                self.edit_delete_btn.render_shadow(ui, r, s.t, |ui, path| {
+                    ui.fill_path(&path, semi_black(0.4));
+                });
+                ui.text(tl!("favorites-delete"))
+                    .pos(r.center().x, r.center().y)
+                    .anchor(0.5, 0.5)
+                    .no_baseline()
+                    .size(0.4)
+                    .color(Color::new(1., 0.3, 0.3, 0.9))
+                    .draw();
+            }
         }
 
         Ok(())
