@@ -64,8 +64,9 @@ mods-fade-out-sub = ノーツが判定ラインに近づくと消えます
 mods-strict-judge = 厳格判定
 mods-strict-judge-sub = より厳格な判定範囲を使用します
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+
+fav-added = お気に入りに追加しました
+fav-removed = お気に入りから削除しました
+fav-add-to = フォルダーに追加...
+fav-select-folder = フォルダーを選択
+fav-default-folder = デフォルトのフォルダー
