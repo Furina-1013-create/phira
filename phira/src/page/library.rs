@@ -286,12 +286,7 @@ impl Page for LibraryPage {
         tl!("label")
     }
 
-    fn enter(&mut self, s: &mut SharedState) -> Result<()> {
-        // 读取收藏夹浏览页的选择结果  ||  read the selection result of the favorites page
-        if let Some(result) = FAV_PAGE_RESULT.with(|it| it.borrow_mut().take()) {
-            self.current_fav_folder = result;
-            self.sync_local(s);
-        }
+    fn enter(&mut self, _s: &mut SharedState) -> Result<()> {
         Ok(())
     }
 
@@ -398,6 +393,13 @@ impl Page for LibraryPage {
 
     fn update(&mut self, s: &mut SharedState) -> Result<()> {
         let t = s.t;
+
+        // 在 update 中处理收藏夹选择结果，绕开fader那个的0.7秒延迟  ||  Handle the favorites folder selection result in update, bypassing the 0.7-second delay of the fader
+        if let Some(result) = FAV_PAGE_RESULT.with(|it| it.borrow_mut().take()) {
+            self.current_fav_folder = result;
+            self.sync_local(s);
+        }
+
         self.tags.update(t);
         self.rating.update(t);
 

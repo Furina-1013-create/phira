@@ -1,4 +1,4 @@
-#![allow(dependency_on_unit_never_type_fallback)]
+// #![allow(dependency_on_unit_never_type_fallback)]
 
 prpr_l10n::tl_file!("common" ttl crate::);
 
