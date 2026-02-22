@@ -14,6 +14,7 @@ bitflags! {
         const AUTOPLAY = 1;
         const FLIP_X = 2;
         const FADE_OUT = 4;
+        // const STRICT_JUDGE = 8;  
     }
 }
 

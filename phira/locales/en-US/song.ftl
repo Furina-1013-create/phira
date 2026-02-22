@@ -105,6 +105,8 @@ mods-flip-x = Mirror
 mods-flip-x-sub = Mirrors the chart by the X-axis.
 mods-fade-out = Fade-Out
 mods-fade-out-sub = Makes notes fade out when they approach the judgeline.
+# mods-strict-judge = Strict Judge  
+# mods-strict-judge-sub = Uses stricter judgment windows  
 
 rate-failed = Rate failed.
 rate-done = Rated successfully.

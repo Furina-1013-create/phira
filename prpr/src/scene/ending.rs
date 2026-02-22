@@ -2,7 +2,8 @@ prpr_l10n::tl_file!("ending");
 
 use super::{draw_background, game::SimpleRecord, loading::UploadFn, NextScene, Scene};
 use crate::{
-    config::Config,
+    // config::{Config, Mods},
+    config::Config, 
     core::{BOLD_FONT, PGR_FONT},
     ext::{create_audio_manger, rect_shadow, semi_black, semi_white, RectExt, SafeTexture, ScaleType},
     info::ChartInfo,
@@ -42,6 +43,7 @@ pub struct EndingScene {
     player_name: String,
     player_rks: Option<f32>,
     autoplay: bool,
+    // strict_judge: bool,
     speed: f32,
     next: u8, // 0 -> none, 1 -> pop, 2 -> exit
     update_state: Option<RecordUpdateState>,
@@ -120,6 +122,7 @@ impl EndingScene {
             player_name: config.player_name.clone(),
             player_rks,
             autoplay: config.autoplay(),
+            // strict_judge: config.has_mod(Mods::STRICT_JUDGE),  // 严判模式已注释
             speed: config.speed,
             next: 0,
 
@@ -487,6 +490,8 @@ impl Scene for EndingScene {
             } else {
                 format!("{:.2}x", self.speed)
             };
+            // 严判模式已注释
+            // let strict = if self.strict_judge { "STRICT" } else { "" };
             let text = if self.autoplay {
                 format!("AUTOPLAY {spd}")
             } else if !self.rated {

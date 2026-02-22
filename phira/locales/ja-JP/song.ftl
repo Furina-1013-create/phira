@@ -57,3 +57,10 @@ ldb-no-rank = なし
 
 mods-autoplay = オートプレイ
 mods-autoplay-sub = これを有効にすると、リザルトの記録が無効になります
+mods-flip-x = X軸反転
+mods-flip-x-sub = X軸上で譜面を反転します
+mods-fade-out = フェードアウト
+mods-fade-out-sub = ノーツが判定ラインに近づくと消えます
+# mods-strict-judge = 厳格判定  
+# mods-strict-judge-sub = より厳格な判定範囲を使用します  
+
