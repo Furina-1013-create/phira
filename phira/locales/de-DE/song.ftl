@@ -105,8 +105,8 @@ mods-flip-x = Spiegeln
 mods-flip-x-sub = Spiegelt die Level an der X-Achse.
 mods-fade-out = Ausblenden
 mods-fade-out-sub = Noten verblassen beim Erreichen der Bewertungsleiste.
-mods-strict-judge =
-mods-strict-judge-sub =
+# mods-strict-judge =  
+# mods-strict-judge-sub =  
 
 rate-failed = Bewertung fehlgeschlagen.
 rate-done = Bewertung erfolgreich.

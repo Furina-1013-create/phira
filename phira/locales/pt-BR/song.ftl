@@ -102,8 +102,8 @@ mods-flip-x = Virar X
 mods-flip-x-sub = Virar no eixo X 
 mods-fade-out = Desaparecer 
 mods-fade-out-sub = As notas desaparecem quando se aproximam da linha 
-mods-strict-judge =
-mods-strict-judge-sub =
+# mods-strict-judge =  
+# mods-strict-judge-sub =  
 
 rate-failed = Falha na avaliação
 rate-done = Avaliado com sucesso 

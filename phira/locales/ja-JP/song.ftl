@@ -61,8 +61,8 @@ mods-flip-x = X軸反転
 mods-flip-x-sub = X軸上で譜面を反転します
 mods-fade-out = フェードアウト
 mods-fade-out-sub = ノーツが判定ラインに近づくと消えます
-mods-strict-judge =
-mods-strict-judge-sub =
+# mods-strict-judge =  
+# mods-strict-judge-sub =  
 
 fav-added =
 fav-removed =

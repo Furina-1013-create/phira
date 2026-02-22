@@ -103,8 +103,8 @@ mods-flip-x = X'te Döndür
 mods-flip-x-sub = X ekseninde döndür
 mods-fade-out = Sönerek çık
 mods-fade-out-sub = Notalar çizgiye yaklaşırken kaybolur
-mods-strict-judge =
-mods-strict-judge-sub =
+# mods-strict-judge =  
+# mods-strict-judge-sub =  
 
 rate-failed = Oylama başarısız
 rate-done = Başarıyla oylandı

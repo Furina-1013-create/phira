@@ -103,8 +103,8 @@ mods-flip-x = X 軸反轉
 mods-flip-x-sub = 在 X 軸上反轉譜面
 mods-fade-out = 下隱
 mods-fade-out-sub = 音符在靠近判定線時會隱藏
-mods-strict-judge = 嚴判模式
-mods-strict-judge-sub = 採用更加嚴格的判定
+# mods-strict-judge = 嚴判模式  
+# mods-strict-judge-sub = 採用更加嚴格的判定  
 
 rate-failed = 評分失敗
 rate-done = 評分成功

@@ -96,8 +96,8 @@ mods-flip-x = Flip X
 mods-flip-x-sub = Flip pada X-axis
 mods-fade-out = Fade out
 mods-fade-out-sub = Note menghilang saat mendekati garis
-mods-strict-judge =
-mods-strict-judge-sub =
+# mods-strict-judge =  
+# mods-strict-judge-sub =  
 
 rate-failed = Rate gagal
 rate-done = Rate berhasil

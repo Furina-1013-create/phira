@@ -22,9 +22,9 @@ pub const LIMIT_GOOD: f32 = 0.16;
 pub const LIMIT_BAD: f32 = 0.22;
 
 // 严判模式判定窗口
-pub const STRICT_LIMIT_PERFECT: f32 = 0.04;
-pub const STRICT_LIMIT_GOOD: f32 = 0.08;
-pub const STRICT_LIMIT_BAD: f32 = 0.11;
+// pub const STRICT_LIMIT_PERFECT: f32 = 0.04;
+// pub const STRICT_LIMIT_GOOD: f32 = 0.08;
+// pub const STRICT_LIMIT_BAD: f32 = 0.11;
 pub const UP_TOLERANCE: f32 = 0.05;
 pub const DIST_FACTOR: f32 = 0.2;
 
@@ -396,10 +396,13 @@ impl Judge {
         const X_DIFF_MAX: f32 = 0.21 / (16. / 9.) * 2.;
         let spd = res.config.speed;
 
-        let strict = res.config.has_mod(crate::config::Mods::STRICT_JUDGE);
-        let limit_perfect = if strict { STRICT_LIMIT_PERFECT } else { LIMIT_PERFECT };
-        let limit_good = if strict { STRICT_LIMIT_GOOD } else { LIMIT_GOOD };
-        let limit_bad = if strict { STRICT_LIMIT_BAD } else { LIMIT_BAD };
+        // let strict = res.config.has_mod(crate::config::Mods::STRICT_JUDGE);
+        // let limit_perfect = if strict { STRICT_LIMIT_PERFECT } else { LIMIT_PERFECT };
+        // let limit_good = if strict { STRICT_LIMIT_GOOD } else { LIMIT_GOOD };
+        // let limit_bad = if strict { STRICT_LIMIT_BAD } else { LIMIT_BAD };
+        let limit_perfect = LIMIT_PERFECT;
+        let limit_good = LIMIT_GOOD;
+        let limit_bad = LIMIT_BAD;
 
         let uptime = get_uptime();
 
