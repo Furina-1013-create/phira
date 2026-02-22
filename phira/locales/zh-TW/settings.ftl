@@ -41,6 +41,7 @@ item-bgm = BGM 音量
 item-cali = 調整延遲
 
 item-show-acc = 顯示實時準確率
+item-show-remaining-acc = 顯示剩餘準確率
 item-dc-pause = 雙擊暫停
 item-dhint = 雙押提示
 item-dhint-sub = 同時觸線的音符將會被高亮

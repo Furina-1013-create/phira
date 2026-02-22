@@ -36,6 +36,7 @@ item-bgm = Âm lượng nhạc nền
 item-cali = Hiệu chỉnh
 
 item-show-acc = Hiển thị độ chính xác theo thời gian thực
+item-show-remaining-acc = Hiển thị độ chính xác còn lại
 item-dc-pause = Chạm hai lần để tạm dừng
 item-dhint = Nổi bật note trùng nhau
 item-dhint-sub = Các note rơi cùng một lúc sẽ được làm nổi bật
