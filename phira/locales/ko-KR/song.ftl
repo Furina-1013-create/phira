@@ -127,8 +127,8 @@ stabilize-approved-passed = 승인됨, 비트맵이 안정화되었습니다.
 stabilize-denied = 거부됨
 stabilize-denied-passed = 거부됨, 비트맵이 거부되었습니다.
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =
