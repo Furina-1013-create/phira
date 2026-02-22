@@ -106,6 +106,8 @@ mods-flip-x = Зеркально
 mods-flip-x-sub = Отражает чарт по оси Х
 mods-fade-out = Исчезающие ноты
 mods-fade-out-sub = Ноты исчезают при приближении к линии
+mods-strict-judge = Строгая оценка
+mods-strict-judge-sub = Более строгие окна оценки
 
 rate-failed = Ошибка при оценке
 rate-done = Чарт оценëн

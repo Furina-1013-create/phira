@@ -88,6 +88,8 @@ mods-flip-x = Obrót osi X
 mods-flip-x-sub = Obróc na osi X
 mods-fade-out = Zanikanie
 mods-fade-out-sub = Nuty znikają po dotarciu na linię
+mods-strict-judge = Surowy Osąd
+mods-strict-judge-sub = Używa bardziej surowych okien osądu
 
 rate-failed = Nie oceniono
 rate-done = Oceniono pomyślnie

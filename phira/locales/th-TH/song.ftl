@@ -97,6 +97,8 @@ mods-flip-x = Flip X
 mods-flip-x-sub = กลับด้าน Chart ในแกน X
 mods-fade-out = Fade out
 mods-fade-out-sub = Note จะจางลงเมื่อเข้าใกล้ Line
+mods-strict-judge = ตัดสินเข้มงวด
+mods-strict-judge-sub = ใช้ช่วงการตัดสินที่เข้มงวดยิ่งขึ้น
 
 rate-failed = Rate ล้มเหลว
 rate-done = Rated เสร็จเรียบร้อย
