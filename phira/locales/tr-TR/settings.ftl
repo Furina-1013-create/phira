@@ -28,7 +28,7 @@ item-bgm = Arkaplan müziği
 item-cali = Dengeyi ayarla
 
 item-show-acc = Doğruluğu gerçek zamanlı göster
-item-show-remaining-acc = Kalan doğruluğu göster
+item-show-remaining-acc =
 item-dc-pause = Durdurmak için çift dokun
 item-dhint = Aynı anda gelen notaları belirt
 item-dhint-sub = Çizgilere aynı anda dokunan notalar belirtilir.

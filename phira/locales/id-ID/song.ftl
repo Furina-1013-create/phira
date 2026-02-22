@@ -96,8 +96,8 @@ mods-flip-x = Flip X
 mods-flip-x-sub = Flip pada X-axis
 mods-fade-out = Fade out
 mods-fade-out-sub = Note menghilang saat mendekati garis
-mods-strict-judge = Penilaian Ketat
-mods-strict-judge-sub = Menggunakan jendela penilaian yang lebih ketat
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Rate gagal
 rate-done = Rate berhasil
@@ -122,8 +122,8 @@ stabilize-approved-passed = Approved, beatmap telah stabil
 stabilize-denied = Denied
 stabilize-denied-passed = Denied, beatmap ditolak
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

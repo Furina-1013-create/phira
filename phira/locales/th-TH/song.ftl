@@ -97,8 +97,8 @@ mods-flip-x = Flip X
 mods-flip-x-sub = กลับด้าน Chart ในแกน X
 mods-fade-out = Fade out
 mods-fade-out-sub = Note จะจางลงเมื่อเข้าใกล้ Line
-mods-strict-judge = ตัดสินเข้มงวด
-mods-strict-judge-sub = ใช้ช่วงการตัดสินที่เข้มงวดยิ่งขึ้น
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Rate ล้มเหลว
 rate-done = Rated เสร็จเรียบร้อย
@@ -123,8 +123,8 @@ stabilize-approved-passed = ได้รับการอนุมัติแ�
 stabilize-denied = ถูกปฏิเสธ
 stabilize-denied-passed = ถูกปฏิเสธ, Chart ได้ถูกปฏิเสธการ Stabilize
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

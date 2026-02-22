@@ -13,21 +13,21 @@ failed-to-load-online = Falha ao carregar beatmaps online
 
 import = Importar 
 
-favorites = Favoritos
-favorites-default = Padrão
-favorites-create = Nova pasta
-favorites-enter-name = Digite o nome da pasta
-favorites-name-empty = O nome não pode estar vazio
-favorites-name-exists = O nome já existe
-favorites-created = Criado
-favorites-deleted = Pasta excluída
-favorites-renamed = Renomeado
-favorites-rename = Renomear
-favorites-delete = Excluir pasta
-favorites-delete-confirm = Excluir esta pasta? (As charts não serão removidas)
-favorites-custom-cover = Capa personalizada
-favorites-all = Todos
-favorites-show-all = Mostrar todas as charts
+favorites =
+favorites-default =
+favorites-create =
+favorites-enter-name =
+favorites-name-empty =
+favorites-name-exists =
+favorites-created =
+favorites-deleted =
+favorites-renamed =
+favorites-rename =
+favorites-delete =
+favorites-delete-confirm =
+favorites-custom-cover =
+favorites-all =
+favorites-show-all =
 
 offline-mode = Não é possível carregar beatmaps online no modo offline 
 

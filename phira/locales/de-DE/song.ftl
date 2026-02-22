@@ -105,8 +105,8 @@ mods-flip-x = Spiegeln
 mods-flip-x-sub = Spiegelt die Level an der X-Achse.
 mods-fade-out = Ausblenden
 mods-fade-out-sub = Noten verblassen beim Erreichen der Bewertungsleiste.
-mods-strict-judge = Strenges Urteil
-mods-strict-judge-sub = Verwendet strengere Bewertungsfenster
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Bewertung fehlgeschlagen.
 rate-done = Bewertung erfolgreich.
@@ -131,8 +131,8 @@ stabilize-approved-passed = Das Level wurde stabilisiert.
 stabilize-denied = Abgelehnt
 stabilize-denied-passed = Abgelehnt, das Level wurde zurückgewiesen.
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

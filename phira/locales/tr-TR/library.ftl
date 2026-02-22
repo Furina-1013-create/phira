@@ -13,21 +13,21 @@ failed-to-load-online = İnternet üzerindeki müzikler yüklenemedi
 
 import = İçe Aktar
 
-favorites = Favoriler
-favorites-default = Varsayılan
-favorites-create = Yeni Klasör
-favorites-enter-name = Klasör adını girin
-favorites-name-empty = Ad boş olamaz
-favorites-name-exists = Ad zaten mevcut
-favorites-created = Oluşturuldu
-favorites-deleted = Klasör silindi
-favorites-renamed = Yeniden adlandırıldı
-favorites-rename = Yeniden Adlandır
-favorites-delete = Klasörü Sil
-favorites-delete-confirm = Bu klasör silinsin mi? (Chartlar kaldırılmayacak)
-favorites-custom-cover = Özel Kapak
-favorites-all = Tümü
-favorites-show-all = Tüm chartları göster
+favorites =
+favorites-default =
+favorites-create =
+favorites-enter-name =
+favorites-name-empty =
+favorites-name-exists =
+favorites-created =
+favorites-deleted =
+favorites-renamed =
+favorites-rename =
+favorites-delete =
+favorites-delete-confirm =
+favorites-custom-cover =
+favorites-all =
+favorites-show-all =
 
 offline-mode = Çevrimdışıyken çevrimiçi müzikler kullanılamaz
 

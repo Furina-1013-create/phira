@@ -102,8 +102,8 @@ mods-flip-x = Virar X
 mods-flip-x-sub = Virar no eixo X 
 mods-fade-out = Desaparecer 
 mods-fade-out-sub = As notas desaparecem quando se aproximam da linha 
-mods-strict-judge = Julgamento Rigoroso
-mods-strict-judge-sub = Usa janelas de julgamento mais rigorosas
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Falha na avaliação
 rate-done = Avaliado com sucesso 
@@ -128,8 +128,8 @@ stabilize-approved-passed = Aprovado, o beatmap está estabilizado
 stabilize-denied = Negado
 stabilize-denied-passed = Negado, o beatmap foi rejeitado 
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

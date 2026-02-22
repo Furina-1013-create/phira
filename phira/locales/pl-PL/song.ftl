@@ -88,8 +88,8 @@ mods-flip-x = Obrót osi X
 mods-flip-x-sub = Obróc na osi X
 mods-fade-out = Zanikanie
 mods-fade-out-sub = Nuty znikają po dotarciu na linię
-mods-strict-judge = Surowy Osąd
-mods-strict-judge-sub = Używa bardziej surowych okien osądu
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Nie oceniono
 rate-done = Oceniono pomyślnie
@@ -112,9 +112,9 @@ stabilize-approved-passed = Zatwierdzono, beatmapa jest ustabilizowana
 stabilize-denied = Nie zatwierdzono
 stabilize-denied-passed = Nie zatwierdzono, beatmapa została odrzucona
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =
 

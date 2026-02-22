@@ -103,8 +103,8 @@ mods-flip-x = Mirror
 mods-flip-x-sub = Lật ngược Chart theo trục X
 mods-fade-out = Mờ dần
 mods-fade-out-sub = Note sẽ biến mất khi chúng đến gần line
-mods-strict-judge = Phán xét nghiêm ngặt
-mods-strict-judge-sub = Sử dụng cửa sổ phán xét nghiêm ngặt hơn
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Không thể đánh giá
 rate-done = Đã đánh giá
@@ -129,8 +129,8 @@ stabilize-approved-passed = Đã phê duyệt, Chart này giờ đây sẽ ổn 
 stabilize-denied = Từ chối
 stabilize-denied-passed = Đã từ chối, Chart này đã bị bỏ qua
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

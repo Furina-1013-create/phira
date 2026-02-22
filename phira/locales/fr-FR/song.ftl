@@ -105,8 +105,8 @@ mods-flip-x = Inverser sur X
 mods-flip-x-sub = Inversion de la partition sur l'axe X
 mods-fade-out = Disparition
 mods-fade-out-sub = Les notes disparaissent à l'approche de la ligne de jugement
-mods-strict-judge = Jugement Strict
-mods-strict-judge-sub = Utilise des fenêtres de jugement plus strictes
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Échec de la notation
 rate-done = Noté avec succès
@@ -131,8 +131,8 @@ stabilize-approved-passed = La partition est stabilisée.
 stabilize-denied = Refusé
 stabilize-denied-passed = La partition est rejetée.
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

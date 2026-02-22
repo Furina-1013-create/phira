@@ -12,21 +12,21 @@ failed-to-load-online = ไม่สามารถโหลด Chart online ไ
 
 import = เพิ่ม
 
-favorites = รายการโปรด
-favorites-default = ค่าเริ่มต้น
-favorites-create = โฟลเดอร์ใหม่
-favorites-enter-name = ใส่ชื่อโฟลเดอร์
-favorites-name-empty = ชื่อไม่สามารถเว้นว่างได้
-favorites-name-exists = ชื่อนี้มีอยู่แล้ว
-favorites-created = สร้างแล้ว
-favorites-deleted = ลบโฟลเดอร์แล้ว
-favorites-renamed = เปลี่ยนชื่อแล้ว
-favorites-rename = เปลี่ยนชื่อ
-favorites-delete = ลบโฟลเดอร์
-favorites-delete-confirm = ลบโฟลเดอร์นี้? (ชาร์ตจะไม่ถูกลบ)
-favorites-custom-cover = ปกที่กำหนดเอง
-favorites-all = ทั้งหมด
-favorites-show-all = แสดงชาร์ตทั้งหมด
+favorites =
+favorites-default =
+favorites-create =
+favorites-enter-name =
+favorites-name-empty =
+favorites-name-exists =
+favorites-created =
+favorites-deleted =
+favorites-renamed =
+favorites-rename =
+favorites-delete =
+favorites-delete-confirm =
+favorites-custom-cover =
+favorites-all =
+favorites-show-all =
 
 offline-mode = ไม่สามารถโหลด Chart online ในโหมด Offline ได้
 

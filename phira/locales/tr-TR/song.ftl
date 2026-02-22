@@ -103,8 +103,8 @@ mods-flip-x = X'te Döndür
 mods-flip-x-sub = X ekseninde döndür
 mods-fade-out = Sönerek çık
 mods-fade-out-sub = Notalar çizgiye yaklaşırken kaybolur
-mods-strict-judge = Sıkı Yargılama
-mods-strict-judge-sub = Daha sıkı yargılama aralıkları kullanır
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Oylama başarısız
 rate-done = Başarıyla oylandı
@@ -129,8 +129,8 @@ stabilize-approved-passed = Onaylandı, bu ritim dengelendi
 stabilize-denied = Reddedildi
 stabilize-denied-passed = Reddedildi, bu ritim reddedildi.
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

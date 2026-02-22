@@ -18,7 +18,7 @@ item-sfx = Głośność SFX
 item-cali = Ustaw opóźnienie
 
 item-show-acc = Dokładność w czasie rzeczywistym
-item-show-remaining-acc = Pozostała dokładność
+item-show-remaining-acc =
 item-dc-pause = Kliknij podwójnie, aby zatrzymać
 item-dhint = Podwójna wskazówka
 item-dhint-sub = Nuty, które dotykają linii jednocześnie będą podświetlane

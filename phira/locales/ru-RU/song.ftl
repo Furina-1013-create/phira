@@ -106,8 +106,8 @@ mods-flip-x = Зеркально
 mods-flip-x-sub = Отражает чарт по оси Х
 mods-fade-out = Исчезающие ноты
 mods-fade-out-sub = Ноты исчезают при приближении к линии
-mods-strict-judge = Строгая оценка
-mods-strict-judge-sub = Более строгие окна оценки
+mods-strict-judge =
+mods-strict-judge-sub =
 
 rate-failed = Ошибка при оценке
 rate-done = Чарт оценëн
@@ -132,8 +132,8 @@ stabilize-approved-passed = Ваша заявка на подтверждени�
 stabilize-denied = Отклонëн
 stabilize-denied-passed = Ваша заявка на подтвержение была отклонена
 
-fav-added = Added to favorites
-fav-removed = Removed from favorites
-fav-add-to = Add to...
-fav-select-folder = Select folder
-fav-default-folder = Default
+fav-added =
+fav-removed =
+fav-add-to =
+fav-select-folder =
+fav-default-folder =

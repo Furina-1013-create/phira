@@ -13,21 +13,21 @@ failed-to-load-online = Fehler beim Laden der Online-Level.
 
 import = Importieren
 
-favorites = Favoriten
-favorites-default = Standard
-favorites-create = Neuer Ordner
-favorites-enter-name = Ordnernamen eingeben
-favorites-name-empty = Name darf nicht leer sein
-favorites-name-exists = Name existiert bereits
-favorites-created = Erstellt
-favorites-deleted = Ordner gelöscht
-favorites-renamed = Umbenannt
-favorites-rename = Umbenennen
-favorites-delete = Ordner löschen
-favorites-delete-confirm = Diesen Ordner löschen? (Charts werden nicht entfernt)
-favorites-custom-cover = Benutzerdefiniertes Cover
-favorites-all = Alle
-favorites-show-all = Alle Charts anzeigen
+favorites =
+favorites-default =
+favorites-create =
+favorites-enter-name =
+favorites-name-empty =
+favorites-name-exists =
+favorites-created =
+favorites-deleted =
+favorites-renamed =
+favorites-rename =
+favorites-delete =
+favorites-delete-confirm =
+favorites-custom-cover =
+favorites-all =
+favorites-show-all =
 
 offline-mode = Sämtliche Online-Funktionen sind aufgrund des Offline-Modus deaktiviert. (Einstellungen)
 

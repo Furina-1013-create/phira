@@ -12,21 +12,21 @@ failed-to-load-online = 비트맵을 불러오는데 실패하였습니다
 
 import = 불러오기
 
-favorites = 즐겨찾기
-favorites-default = 기본
-favorites-create = 새 폴더
-favorites-enter-name = 폴더 이름 입력
-favorites-name-empty = 이름이 비어있을 수 없습니다
-favorites-name-exists = 이름이 이미 존재합니다
-favorites-created = 생성되었습니다
-favorites-deleted = 폴더가 삭제되었습니다
-favorites-renamed = 이름이 변경되었습니다
-favorites-rename = 이름 변경
-favorites-delete = 폴더 삭제
-favorites-delete-confirm = 이 폴더를 삭제하시겠습니까? (차트는 삭제되지 않습니다)
-favorites-custom-cover = 커스텀 커버
-favorites-all = 전체
-favorites-show-all = 모든 차트 보기
+favorites =
+favorites-default =
+favorites-create =
+favorites-enter-name =
+favorites-name-empty =
+favorites-name-exists =
+favorites-created =
+favorites-deleted =
+favorites-renamed =
+favorites-rename =
+favorites-delete =
+favorites-delete-confirm =
+favorites-custom-cover =
+favorites-all =
+favorites-show-all =
 
 offline-mode = 오프라인 모드에서는 온라인 비트맵을 로드할 수 없습니다.
 
