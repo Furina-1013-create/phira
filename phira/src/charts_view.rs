@@ -5,7 +5,6 @@ use crate::{
     page::{ChartItem, ChartType, Fader, Illustration},
     save_data,
     scene::{render_release_to_refresh, SongScene, MP_PANEL},
-    ttl,
 };
 use anyhow::Result;
 use macroquad::prelude::*;

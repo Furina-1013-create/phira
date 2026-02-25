@@ -14,7 +14,6 @@ use crate::{
     scene::{check_read_tos_and_policy, ChartOrder, JUST_LOADED_TOS, ORDERS},
     tabs::{Tabs, TitleFn},
     tags::TagsDialog,
-    ttl,
 };
 use anyhow::{anyhow, Result};
 use macroquad::prelude::*;

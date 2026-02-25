@@ -113,11 +113,13 @@ pub fn load_local(order: &(ChartOrder, bool)) -> Vec<ChartItem> {
     res
 }
 
+type IllustrationTask = Task<Result<(DynamicImage, Option<DynamicImage>)>>;
+
 #[derive(Clone)]
 pub struct Illustration {
     pub texture: (SafeTexture, SafeTexture),
     pub notify: Arc<Notify>,
-    pub task: Option<Task<Result<(DynamicImage, Option<DynamicImage>)>>>,
+    pub task: Option<IllustrationTask>,
     pub loaded: Arc<Mutex<Option<(SafeTexture, SafeTexture)>>>,
     pub load_time: f32,
 }

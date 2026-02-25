@@ -4,6 +4,7 @@ use serde::Deserialize;
 
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[allow(dead_code)]
 pub struct Collection {
     pub id: i32,
     #[serde(default)]

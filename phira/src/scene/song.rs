@@ -16,7 +16,6 @@ use crate::{
     rate::RateDialog,
     save_data,
     tags::TagsDialog,
-    ttl,
 };
 use ::rand::{thread_rng, Rng};
 use anyhow::{anyhow, bail, Context, Result};
@@ -735,6 +734,7 @@ impl SongScene {
     }
 
     #[must_use = "futures do nothing unless you `.await` or poll them"]
+    #[allow(clippy::too_many_arguments)]
     pub fn global_launch(
         id: Option<i32>,
         local_path: &str,
@@ -747,12 +747,14 @@ impl SongScene {
     ) -> Result<LocalSceneTask> {
         let mut fs = fs_from_path(local_path)?;
         let can_rated = id.is_some() || local_path.starts_with(':');
-        #[cfg(feature = "closed")]
+        #[cfg(feature = "video")]
+        let local_path = local_path.to_owned();
+        #[cfg(closed)]
         let rated = {
             let config = &get_data().config;
             !config.offline_mode && can_rated && !mods.contains(Mods::AUTOPLAY) && config.speed >= 1.0 - 1e-3
         };
-        #[cfg(not(feature = "closed"))]
+        #[cfg(not(closed))]
         let rated = false;
         if !rated && can_rated && mode == GameMode::Normal {
             show_message(tl!("warn-unrated")).warn();
