@@ -1,4 +1,4 @@
-name: Cargo Test
+name: Check
 
 on:
   push: {}
@@ -18,18 +18,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install librust-alsa-sys-dev libglib2.0-dev libasound2t64 libatk-adaptor libgail-common libgtk-3-dev
 
-      - name: Setup Rust
-        run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-          rustup toolchain install nightly-2025-07-01
-          rustup default nightly-2025-07-01
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Cache
         uses: Swatinem/rust-cache@v2
         with: 
           cache-on-failure: "true"
           cache-all-crates: "true"
+
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features --workspace -- -D warnings
+      
+      - name: Format
+        run: cargo fmt --all --check
 
       - name: Run tests
         run: |
