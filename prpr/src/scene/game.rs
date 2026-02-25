@@ -216,6 +216,7 @@ impl GameScene {
         Ok((chart, bytes, format))
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub async fn new(
         mode: GameMode,
         info: ChartInfo,

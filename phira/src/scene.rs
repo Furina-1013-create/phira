@@ -27,7 +27,7 @@ use crate::{
     data::LocalChart,
     dir, get_data, get_data_mut,
     page::Fader,
-    save_data, ttl,
+    save_data,
 };
 use anyhow::{bail, Context, Result};
 use async_trait::async_trait;
@@ -63,7 +63,8 @@ thread_local! {
 
 pub static ASSET_CHART_INFO: Lazy<Mutex<Option<ChartInfo>>> = Lazy::new(Mutex::default);
 pub static TERMS: OnceCell<Option<(String, String)>> = OnceCell::new();
-pub static LOAD_TOS_TASK: Lazy<Mutex<Option<Task<Result<Option<(String, String)>>>>>> = Lazy::new(Mutex::default);
+type LoadTosTask = Task<Result<Option<(String, String)>>>;
+pub static LOAD_TOS_TASK: Lazy<Mutex<Option<LoadTosTask>>> = Lazy::new(Mutex::default);
 pub static JUST_ACCEPTED_TOS: Lazy<AtomicBool> = Lazy::new(AtomicBool::default);
 pub static JUST_LOADED_TOS: Lazy<AtomicBool> = Lazy::new(AtomicBool::default);
 
@@ -317,6 +318,7 @@ pub struct LdbDisplayItem<'a> {
     pub btn: &'a mut RectButton,
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn render_ldb<'a>(
     ui: &mut Ui,
     title: &str,

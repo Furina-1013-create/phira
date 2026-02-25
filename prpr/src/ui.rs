@@ -284,6 +284,7 @@ impl DRectButton {
         });
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn render_text_left<'a>(&mut self, ui: &mut Ui, r: Rect, t: f32, alpha: f32, text: impl Into<Cow<'a, str>>, size: f32, chosen: bool) {
         let oh = r.h;
         self.build(ui, t, r, |ui, path| {
@@ -1182,6 +1183,7 @@ impl<'a> From<(Option<f32>, &'a mut f32)> for LoadingParams<'a> {
     }
 }
 
+#[allow(clippy::blocks_in_conditions)]
 fn build_audio() -> AudioManager {
     match {
         #[cfg(target_os = "android")]

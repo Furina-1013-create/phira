@@ -78,10 +78,12 @@ pub fn set_data(data: Data) {
     }
 }
 
+#[allow(static_mut_refs)]
 pub fn get_data() -> &'static Data {
     unsafe { DATA.as_ref().unwrap() }
 }
 
+#[allow(static_mut_refs)]
 pub fn get_data_mut() -> &'static mut Data {
     unsafe { DATA.as_mut().unwrap() }
 }

@@ -260,6 +260,8 @@ pub mod inner;
 #[cfg(feature = "closed")]
 use inner::*;
 
+type Judgements = Vec<(f32, u32, u32, Result<Judgement, bool>)>;
+
 #[repr(C)]
 pub struct Judge {
     // notes of each line in order
@@ -271,7 +273,7 @@ pub struct Judge {
     key_down_count: u32,
 
     pub(crate) inner: JudgeInner,
-    pub judgements: RefCell<Vec<(f32, u32, u32, Result<Judgement, bool>)>>,
+    pub judgements: RefCell<Judgements>,
 }
 
 static SUBSCRIBER_ID: Lazy<usize> = Lazy::new(register_input_subscriber);

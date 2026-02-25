@@ -1,4 +1,4 @@
-use super::{import_chart, itl, L10N_LOCAL};
+use super::{import_chart, L10N_LOCAL};
 use crate::{
     charts_view::NEED_UPDATE,
     data::LocalChart,
